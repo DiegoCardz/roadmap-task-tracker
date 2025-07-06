@@ -71,6 +71,32 @@ def add(*args):
 
 #%%
 def update(*args):
+    """
+    Module to update existing task descriptions
+    """
+    id, description = args[0].split(maxsplit=1) if args else (None, [])
+    while not id:
+        print('A valid task ID is required.')
+        print('[ TaskCLI | update ] >>> ', end='')
+        try: id = int(input(id))
+        except ValueError:
+            if id in ('b', 'q', 'break', 'quit'):
+                print("Terminating `update` module without updating any task!")
+                return
+            else: print("Invalid task ID. Please enter a number.")
+        # search for id in Task.tasks
+        
+        
+        
+    while not description:
+        print(f'Type a new valid description for task {id}.')
+        print('[ TaskCLI | update ] >>> ', end='')
+        description = input().strip(" \"'").lower()
+        if description in ('b', 'q', 'break', 'quit'):
+            print("Terminating `update` module without updating any task!")
+            return
+    # Fetch task by ID
+    
     pass
 
 
@@ -85,11 +111,46 @@ def mark(*args):
 
 
 #%%
+@logger
 def list(*args):
-    print(Task.tasks)
-    pass
+    """
+    Module to list all tasks or filter by status.
+    
+    ### Examples of usage:
+    [ TaskCLI ] >>> list             : --> : lists all tasks
+    [ TaskCLI ] >>> list all         : --> : lists all tasks (default)
+    [ TaskCLI ] >>> list done        : --> : lists only tasks with status 'done'
+    [ TaskCLI ] >>> list todo        : --> : lists only tasks with status 'todo'
+    [ TaskCLI ] >>> list in-progress : --> : lists only tasks with status 'in-progress'
+    """
+    try: status = args[0].lower()
+    except IndexError:
+        status = 'any'
+    
+    match status:
+        case 'all' | 'any': condition = lambda t: True
+        case 'done' | 'todo' | 'in-progress':
+            condition = lambda t: t['status'] == status
+        case _:
+            print(f"Unknown status '{status}'. Showing all tasks.")
+            status = 'any'
+            condition = lambda t: True
+    
+    printv(f"{'Showing tasks':-<20}")
+    counter = 0
+    for t in Task.tasks:
+        if condition(t):
+            print(t)
+            counter += 1
+    printv(f"Found {counter} tasks with status == {status}")
 
 #%% Test block
 if __name__ == "__main__":
-    print('add.__doc__ :', add.__doc__)
-    print('mode.__doc__ :', mode.__doc__)
+    mode('verbose')
+    print(f"Tasks:")
+    print('List module-----')
+    list()
+    list('done')
+    list('hadhl')
+    list('')
+    print(f"max_id: {Task._Task__max_id}")

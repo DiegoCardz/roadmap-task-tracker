@@ -6,8 +6,9 @@ import json
 #%%
 class Task():
     __max_id = 0
+    tasks = []
+    
     def __init__(self, description):
-        self.get_tasks()
         self.__id = self._next_id_()
         self.description = description
         self.status = 'todo'
@@ -60,14 +61,4 @@ class Task():
         with open(path, 'w') as file:
             json.dump(self.__class__.tasks, file, indent=4)
 
-
-# %%
-def get_class_Task_started():
-    for i in range(5):
-        t = Task(f"This is my "
-                f"{i+1}{'st' if i==1 else 'nd' if i==2 else 'rd' if i==3 else 'th'} "
-                f"task")
-        t.as_dict
-        t.__class__.tasks
-        t.export_to_file()
-# %%
+Task.get_tasks()
