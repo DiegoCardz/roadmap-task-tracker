@@ -27,38 +27,77 @@ The application should run from the command line, accept user actions and inputs
 
 Each task should have the following properties:
 
-> - `id:` A unique identifier for the task
-> - `description:` A short description of the task
-> - `status:` The status of the task (todo, in-progress, done)
-> - `createdAt:` The date and time when the task was created
-> - `updatedAt:` The date and time when the task was last updated
+- `id:` A unique identifier for the task  
+- `description:` A short description of the task  
+- `status:` The status of the task (todo, in-progress, done)  
+- `createdAt:` The date and time when the task was created  
+- `updatedAt:` The date and time when the task was last updated  
 
 These properties are stored in a JSON file in the the same directory as the `.py` file.
 
+
 ## 📦 Example Usage
 
-```sh
-# Add a new task
-python task_cli.py add "Buy groceries"
+### Interactive Mode
+The application runs in interactive mode where you can enter commands:
 
-# Update a task
-python task_cli.py update 1 "Buy groceries and cook dinner"
+```bash
+# Start the application
+python task_cli.py
+
+# Once started, you can use these commands:
+[ TaskCLI ] >>> add "Buy groceries"
+OR
+[ TaskCLI ] >>> add Buy groceries and cook dinner
+
+# Update a task (you'll be prompted for ID if not provided)
+[ TaskCLI ] >>> update 1 "Buy groceries and cook dinner"
+OR
+[ TaskCLI ] >>> update
+[ TaskCLI / update ] >>> 1
+[ TaskCLI / update / id 1 ] >>> Buy groceries and cook dinner
 
 # Delete a task
-python task_cli.py delete 1
+[ TaskCLI ] >>> delete 1
+[ TaskCLI ] >>> del 1
 
-# Mark task as in progress
-python task_cli.py mark-in-progress 2
-
-# Mark task as done
-python task_cli.py mark-done 2
+# Mark task status
+[ TaskCLI ] >>> mark 1 done
+[ TaskCLI ] >>> mark 2 in-progress
+[ TaskCLI ] >>> m 3 todo
 
 # List all tasks
-python task_cli.py list
+[ TaskCLI ] >>> list
+[ TaskCLI ] >>> l
 
 # List tasks by status
-python task_cli.py list done
-python task_cli.py list todo
-python task_cli.py list in-progress
+[ TaskCLI ] >>> list done
+[ TaskCLI ] >>> list todo
+[ TaskCLI ] >>> list in-progress
 
+# Get help
+[ TaskCLI ] >>> help
+[ TaskCLI ] >>> h
+
+# Exit the application
+[ TaskCLI ] >>> quit
+[ TaskCLI ] >>> q
 ```
+### Command Aliases
+The CLI supports short aliases for convenience:
+- `a` or `add` - Add new task
+- `u`, `update`, or `up` - Update existing task
+- `d`, `delete`, or `del` - Delete task
+- `m` or `mark` - Change task status
+- `l` or `list` - List tasks
+- `h` or `help` - Show help
+- `q` or `quit` - Exit application
+
+### Verbose Mode
+The CLI also has a verbose mode that show more information on command executions
+```bash
+# Change mode (verbose/normal)
+[ TaskCLI ] >>> mode
+```
+
+
