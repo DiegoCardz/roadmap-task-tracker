@@ -1,6 +1,6 @@
 #%% 
 from package.functions \
-    import printv, help, add, update, delete, mark, list, mode
+    import printv, help, add, list, mode, action_manager
 
 #%%
 def prompt():
@@ -11,7 +11,7 @@ def prompt():
             action = action.lower()
         except Exception as e: 
             printv(f"ERROR: {e}.")
-            action = 'q' 
+            action = '_' 
             specs = None
         
         printv(f"action: {action}")
@@ -23,9 +23,9 @@ def prompt():
                 break
             case 'h' | 'help': help(*specs)
             case 'a' | 'add': add(*specs)
-            case 'u' | 'update' | 'up': update(*specs)
-            case 'd' | 'delete' | 'del': delete(*specs)
-            case 'm' | 'mark': mark(*specs)
+            case 'u' | 'update' | 'up': action_manager('update', *specs)
+            case 'd' | 'delete' | 'del': action_manager('delete', *specs)
+            case 'm' | 'mark': action_manager('mark', *specs)
             case 'l' | 'list': list(*specs)
             case 'mode': mode(*specs)
             case _: print("Invalid input.\n"
@@ -41,11 +41,3 @@ def header():
 #%% Main()
 header()
 prompt()
-
-#%% Testing class Task
-# n = 5
-# task = [None]*n
-# for i in range(n):
-#     task[i] = Task()
-#     print(task[i].__dict__)
-# %%
