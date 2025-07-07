@@ -227,9 +227,11 @@ def list(*args):
     
     printv(f"{'Showing tasks':-<20}")
     counter = 0
+    print(f"{'ID':<5} {'Description':<60} {'Status':<15} {'Created At':<20} {'Updated At':<20}")
     for task_id, task_data in Task.tasks.items():
         if condition(task_data):
-            print(f"id: {task_id} {task_data}")
+            print(f"{task_id:<5} {task_data['description'][:60]:<60} {task_data['status']:<15}"
+                  f"{task_data['createdAt'][:19]:<20} {task_data['updatedAt'][:19]:<20}")
             counter += 1
     printv(f"Found {counter} tasks with status == {status}")
 
