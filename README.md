@@ -83,7 +83,7 @@ OR
 [ TaskCLI ] >>> quit
 [ TaskCLI ] >>> q
 ```
-### Command Aliases
+##### Command Aliases
 The CLI supports short aliases for convenience:
 - `a` or `add` - Add new task
 - `u`, `update`, or `up` - Update existing task
@@ -93,11 +93,9 @@ The CLI supports short aliases for convenience:
 - `h` or `help` - Show help
 - `q` or `quit` - Exit application
 
-### Verbose Mode
+##### Verbose Mode
 The CLI also has a verbose mode that show more information on command executions
 ```bash
 # Change mode (verbose/normal)
 [ TaskCLI ] >>> mode
 ```
-
-
